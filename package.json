@@ -1,0 +1,41 @@
+{
+  "name": "portal-tricordiano-frontend",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@aws-amplify/ui-react": "^2.2.2",
+    "@headlessui/react": "^1.4.3",
+    "@heroicons/react": "^1.0.5",
+    "@stripe/react-stripe-js": "^1.7.0",
+    "@stripe/stripe-js": "^1.24.0",
+    "@tailwindcss/forms": "^0.4.0",
+    "aws-amplify": "^4.3.14",
+    "axios": "^0.25.0",
+    "daisyui": "^1.25.4",
+    "emotion": "^11.0.0",
+    "flowbite": "^1.3.3",
+    "kutty": "^0.6.0",
+    "moment": "^2.29.1",
+    "next": "12.0.9",
+    "nookies": "^2.5.2",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-hook-form": "^7.26.0",
+    "react-icons": "^4.3.1",
+    "stripe": "^8.209.0",
+    "swr": "^1.2.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.2",
+    "eslint": "8.8.0",
+    "eslint-config-next": "12.0.9",
+    "postcss": "^8.4.5",
+    "postcss-preset-env": "^7.2.3",
+    "tailwindcss": "^3.0.18"
+  }
+}
