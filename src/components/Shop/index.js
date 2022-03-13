@@ -6,6 +6,7 @@ import Link from "next/link";
 import { api } from "../../services/api";
 
 const Shop = () => {
+
   const router = useRouter();
 
   const { data, error } = useSWR("/products", (url) =>
@@ -15,10 +16,18 @@ const Shop = () => {
   if (error) return <div>ERROR</div>;
   if (!data) return <div>Carregando...</div>;
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    api.post('/checkout/createCheckoutSession', {
+      productId: event.target.name,
+    }).then(({ data }) => router.push(data.redirectURL));
+
+  }
+
   return (
     <div className="flex flex-wrap">
       {data.map((product) => {
-        console.log(product);
         return (
           <div
             className="w-80 flex justify-center items-center"
@@ -44,12 +53,24 @@ const Shop = () => {
                 <div className="prod-info grid gap-10">
                   <div className="flex flex-col md:flex-row justify-between items-center text-gray-900">
                     <p className="font-bold text-xl">R$ {product.price} </p>
-                    <Link
-                      className="px-6 py-2 transition ease-in duration-200 uppercase rounded-full hover:bg-gray-800 hover:text-white border-2 border-gray-900 focus:outline-none"
+                    {/* <Link
+                      
                       href={`/checkout?product=${product._id}`}
                     >
-                      <a> Comprar agora</a>
-                    </Link>
+                      <a > Comprar agora</a>
+                    </Link> */}
+                    <form
+                      method="POST"
+                      onSubmit={(event) => handleSubmit(event)}
+                      name={product._id}
+                    >
+                      <button
+                        type="submit"
+                        className="px-6 py-2 transition ease-in duration-200 uppercase rounded-full hover:bg-gray-800 hover:text-white border-2 border-gray-900 focus:outline-none"
+                      >
+                        Checkout
+                      </button>
+                    </form>
                   </div>
                 </div>
               </div>

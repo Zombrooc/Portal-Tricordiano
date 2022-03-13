@@ -49,7 +49,7 @@ export default function Checkout() {
   return (
     <>
       <div>
-        <Elements options={options} stripe={stripePromise}>
+        <Elements stripe={stripePromise}>
           <CheckoutForm />
         </Elements>
       </div>
