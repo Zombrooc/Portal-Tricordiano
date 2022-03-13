@@ -31,6 +31,9 @@ const PostItem = ({ post }) => {
           </span>
         </div>
         <p className="mt-1">
+          {post.title}
+          <br />
+          <hr />
           {post.content}{" "}
           {post.hashtags
             ? post.hashtags.split(" ").map((hashtag) => {
