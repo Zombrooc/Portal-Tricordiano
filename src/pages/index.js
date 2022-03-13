@@ -7,13 +7,10 @@ import Property from "../components/Property";
 import Events from "../components/Events";
 import Shop from "../components/Shop";
 
-import { AuthContext } from "../contexts/AuthContext";
-
 import { api } from "../services/api";
 
 export default function Home() {
   const [selectedMenu, setSelectedMenu] = useState("Feed");
-  const { user } = useContext(AuthContext);
 
   const handleMenu = (menu) => {
     setSelectedMenu(menu);
@@ -30,7 +27,6 @@ export default function Home() {
         <Sidebar
           selectedMenu={selectedMenu}
           handleSelectedMenu={handleMenu}
-          user={user}
         />
 
         {selectedMenu === "Feed" && <PostList />}

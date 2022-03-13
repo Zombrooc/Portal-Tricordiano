@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import Image from "next/image";
 import moment from "moment";
+
 moment.locale("pt-br");
 
 const PostItem = ({ post }) => {
@@ -32,26 +33,36 @@ const PostItem = ({ post }) => {
         <p className="mt-1">
           {post.content}{" "}
           {post.hashtags
-            ? post.hashtags.split(" ").map((hashtag, index) => (
-                <>
+            ? post.hashtags.split(" ").map((hashtag) => {
+                return (
                   <a
                     className="underline"
                     href={`/hashtag/${hashtag.split("#")[1]}`}
-                    key={index}
+                    key={Math.random() * 2.5}
                   >
-                    {hashtag}
-                  </a>{" "}
-                </>
-              ))
+                    {hashtag}{" "}
+                  </a>
+                );
+              })
             : null}
         </p>
-        <div className="container mx-auto py-4 overflow-hidden">
-          <img
-            className="h-80 w-7/12 object-cover"
-            src={`${post.image}`}
-            alt="Man looking at item at a store"
-          />
-        </div>
+        {post.image ? (
+          // <div className="container mx-auto py-4 overflow-hidden">
+          //   <img
+          //     className="h-80 w-7/12 object-cover"
+          //     src={`${post.image}`}
+          //     alt={post.title}
+          //   />
+          // </div>
+          <div className="xs:w-full lg:w-1/4 flex-shrink-0">
+            <img
+              className="object-cover"
+              src={`${post.image}`}
+              s
+              alt={post.title}
+            />
+          </div>
+        ) : null}
       </div>
     </div>
   );

@@ -8,6 +8,8 @@ import {
   TicketIcon,
 } from "@heroicons/react/outline";
 
+import { AuthContext } from "../contexts/AuthContext";
+
 const menuOptions = [
   {
     name: "Feed",
@@ -27,8 +29,10 @@ const menuOptions = [
   },
 ];
 
-const Sidebar = ({ selectedMenu, handleSelectedMenu, user }) => {
+const Sidebar = ({ selectedMenu, handleSelectedMenu }) => {
   const [open, setOpen] = useState(false);
+
+  const { user, isAuthenticated, signOut } = useContext(AuthContext);
 
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
@@ -115,7 +119,7 @@ const Sidebar = ({ selectedMenu, handleSelectedMenu, user }) => {
             </nav>
 
             <div className="flex-col gap-4 flex">
-              {user ? (
+              {isAuthenticated && user ? (
                 <>
                   <div className="flex flex-row gap-4">
                     <div className="flex-shrink-0">
@@ -138,6 +142,7 @@ const Sidebar = ({ selectedMenu, handleSelectedMenu, user }) => {
                   <button
                     type="button"
                     className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                    onClick={signOut}
                   >
                     Sair
                   </button>
@@ -164,24 +169,16 @@ const Sidebar = ({ selectedMenu, handleSelectedMenu, user }) => {
   );
 };
 
-
 export const getServerSideProps = async (ctx) => {
-  const { ['nextauth.token']: token } = parseCookies(ctx)
+  const { ["nextauth.token"]: token } = parseCookies(ctx);
 
-  if (!token) {
-    return {
-      redirect: {
-        destination: '/',
-        permanent: false,
-      }
-    }
+  if (token) {
+    await api.get("/users");
   }
-
-  await api.get('/users')
 
   return {
-    props: {}
-  }
-}
+    props: {},
+  };
+};
 
 export default Sidebar;

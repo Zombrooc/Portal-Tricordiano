@@ -27,16 +27,26 @@ export function AuthProvider({ children }) {
     setCookie(undefined, "nextauth.token", token, {
       maxAge: 60 * 60 * 1, // 1 hour
     });
-
+    
     api.defaults.headers["Authorization"] = `Bearer ${token}`;
-
+    
     setUser(user);
+
+    Router.push('/');
+  }
+
+  async function signOut() {
+    setUser(null);
+
+    setCookie(undefined, "nextauth.token", "", {
+      maxAge: 60 * 60 * 24 * 7, // 1 week
+    });
 
     Router.push("/");
   }
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, signIn }}>
+    <AuthContext.Provider value={{ user, isAuthenticated, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   );

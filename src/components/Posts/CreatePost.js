@@ -6,12 +6,14 @@ import { api } from "../../services/api";
 
 const CreatePost = () => {
   const { "nextauth.token": token } = parseCookies();
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, resetField } = useForm();
 
   const handleSubmitAction = async (data) => {
     const formData = new FormData();
 
-    formData.append("image", data.image[0]);
+    if (data.image) {
+      formData.append("image", data.image[0]);
+    }
     formData.append("title", data.title);
     formData.append("content", data.content);
     formData.append("hashtags", "#teste #teste2");
@@ -23,15 +25,12 @@ const CreatePost = () => {
       },
     };
 
-    const { data: responseData } = await api.post(
-      `/posts`,
-      formData,
-      config
-    );
+    const { data: responseData } = await api.post(`/posts`, formData, config);
 
     if (responseData.error) {
       alert("Erro ao criar post");
     } else {
+      resetField();
       alert("Post criado com sucesso!");
     }
   };
