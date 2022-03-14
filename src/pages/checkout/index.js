@@ -9,7 +9,7 @@ import { api } from "../../services/api";
 import CheckoutForm from "../../components/CheckoutForm";
 import { set } from "react-hook-form";
 
-const stripePromise = loadStripe(`${process.env.STRIPE_SECRET_KEY}`);
+const stripePromise = loadStripe(`${process.env.STRIPE_PUBLISHABLE_KEY}`);
 
 export default function Checkout() {
   const [ clientSecret, setClientSecret] = useState()
