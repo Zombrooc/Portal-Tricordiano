@@ -1,11 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
+import { useContext } from "react";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import Link from "next/link";
 
+import { AuthContext } from "../contexts/AuthContext";
 import { api } from "../../services/api";
 
 const Shop = () => {
+  const { isAuthenticated, user } = useContext(AuthContext);
 
   const router = useRouter();
 
@@ -16,14 +19,19 @@ const Shop = () => {
   if (error) return <div>ERROR</div>;
   if (!data) return <div>Carregando...</div>;
 
-  const handleSubmit = async (event) => {
+  const handleProductCheckout = async (event) => {
     event.preventDefault();
 
-    api.post('/checkout/createCheckoutSession', {
-      productId: event.target.name,
-    }).then(({ data }) => router.push(data.redirectURL));
-
-  }
+    if (isAuthenticated && user.name && user.email) {
+      api
+        .post("/checkout/createCheckoutSession", {
+          productId: event.target.name,
+        })
+        .then(({ data }) => router.push(data.redirectURL));
+    }else {
+      router.push("/auth/signin");
+    }
+  };
 
   return (
     <div className="flex flex-wrap">
@@ -61,7 +69,7 @@ const Shop = () => {
                     </Link> */}
                     <form
                       method="POST"
-                      onSubmit={(event) => handleSubmit(event)}
+                      onSubmit={(event) => handleProductCheckout(event)}
                       name={product._id}
                     >
                       <button
