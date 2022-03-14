@@ -16,7 +16,7 @@ export default function Signup() {
   const handleSubmitAction = async (data) => {
     try {
 
-      const { data } = await api.post("/auth/signup", data);
+      const { data } = await api.post("/users", data);
 
       if (data.name && data.userId) {
         router.push('/auth/signin')
