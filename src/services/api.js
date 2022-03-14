@@ -8,14 +8,7 @@ const api = axios.create({
 });
 
 if (token) {
-  // Set Authorization header
   api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-  // api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 }
 
 export { api }
-// api.interceptors.request.use((config) => {
-//   console.log(config);
-
-//   return config;
-// });

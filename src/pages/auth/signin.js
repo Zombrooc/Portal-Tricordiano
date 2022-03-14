@@ -3,7 +3,6 @@ import { useContext } from "react";
 import Link from "next/link";
 import { LockClosedIcon } from "@heroicons/react/solid";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/router";
 import { AuthContext } from "../../contexts/AuthContext";
 
 export default function Signin() {

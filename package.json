@@ -8,13 +8,11 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "^2.2.2",
     "@headlessui/react": "^1.4.3",
     "@heroicons/react": "^1.0.5",
     "@stripe/react-stripe-js": "^1.7.0",
     "@stripe/stripe-js": "^1.24.0",
     "@tailwindcss/forms": "^0.4.0",
-    "aws-amplify": "^4.3.14",
     "axios": "^0.25.0",
     "daisyui": "^1.25.4",
     "emotion": "^11.0.0",

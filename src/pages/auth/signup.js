@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import { LockClosedIcon } from "@heroicons/react/solid";
-import { Auth } from "aws-amplify";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 

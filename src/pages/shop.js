@@ -1,9 +1,9 @@
 import Head from "next/head";
 
 import SidebarLayout from "../components/SideBarLayout";
-import PostList from "../components/Posts/PostList";
+import ProductList from "../components/Shop/ProductList";
 
-export default function Home() {
+const Shop = () => {
   return (
     <>
       <Head>
@@ -11,9 +11,11 @@ export default function Home() {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
 
-      <SidebarLayout currentPage="Feed">
-        <PostList/>
+      <SidebarLayout currentPage="Feira do Rolo">
+        <ProductList />
       </SidebarLayout>
     </>
   );
-}
+};
+
+export default Shop;

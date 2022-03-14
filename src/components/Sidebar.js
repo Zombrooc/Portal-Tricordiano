@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import Link from "next/link";
 import {
   CollectionIcon,
@@ -13,23 +13,27 @@ import { AuthContext } from "../contexts/AuthContext";
 const menuOptions = [
   {
     name: "Feed",
+    path: "/",
     icon: <CollectionIcon className="w-5 h-5" />,
   },
   {
     name: "Imóveis",
+    path: "/properties",
     icon: <HomeIcon className="w-5 h-5" />,
   },
   {
     name: "Feira do Rolo",
+    path: "/shop",
     icon: <ShoppingCartIcon className="w-5 h-5" />,
   },
   {
     name: "Eventos",
+    path: "/events",
     icon: <TicketIcon className="w-5 h-5" />,
   },
 ];
 
-const Sidebar = ({ selectedMenu, handleSelectedMenu }) => {
+const Sidebar = ({ currentPage }) => {
   const [open, setOpen] = useState(false);
 
   const { user, isAuthenticated, signOut } = useContext(AuthContext);
@@ -72,7 +76,9 @@ const Sidebar = ({ selectedMenu, handleSelectedMenu }) => {
           )}
         >
           <h2 className="text-3xl font-semibold text-gray-800">
-            Portal Tricordiano
+            <Link href="/">
+              <a>Portal Tricordiano</a>
+            </Link>
           </h2>
 
           <div className="relative mt-6">
@@ -101,19 +107,18 @@ const Sidebar = ({ selectedMenu, handleSelectedMenu }) => {
 
           <div className="flex flex-col justify-between flex-1 mt-6">
             <nav>
-              {menuOptions.map(({ name, icon }) => {
+              {menuOptions.map(({ name, path, icon }) => {
                 return (
+                  <Link href={path} key={name}>
                   <a
-                    key={name}
                     className={`hover:bg-gray-200 flex px-4 py-2 mt-5 text-gray-600 transition-colors duration-200 transform rounded-md items-center ${
-                      selectedMenu === name ? "text-gray-700 bg-gray-200" : ""
+                      currentPage === name ? "text-gray-700 bg-gray-200" : ""
                     }`}
-                    href="#"
-                    onClick={() => handleSelectedMenu(name)}
                   >
                     {icon}
                     <span className="mx-4 font-medium">{name}</span>
                   </a>
+                  </Link>
                 );
               })}
             </nav>
