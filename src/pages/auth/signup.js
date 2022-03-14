@@ -16,6 +16,8 @@ export default function Signup() {
   const handleSubmitAction = async (data) => {
     try {
 
+      console.log(data)
+
       const { data } = await api.post("/users", data);
 
       if (data.name && data.userId) {
