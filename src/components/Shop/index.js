@@ -8,7 +8,7 @@ import { AuthContext } from "../contexts/AuthContext";
 import { api } from "../../services/api";
 
 const Shop = () => {
-  const { isAuthenticated, user } = useContext(AuthContext);
+  const { isAuthenticated } = useContext(AuthContext);
 
   const router = useRouter();
 
@@ -22,7 +22,7 @@ const Shop = () => {
   const handleProductCheckout = async (event) => {
     event.preventDefault();
 
-    if (isAuthenticated && user.name && user.email) {
+    if (isAuthenticated ) {
       api
         .post("/checkout/createCheckoutSession", {
           productId: event.target.name,
