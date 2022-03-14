@@ -8,20 +8,20 @@ import { useRouter } from "next/router";
 import { api } from "../../services/api";
 
 export default function Signup() {
-
   const router = useRouter();
 
   const { register, handleSubmit } = useForm();
 
-  const handleSubmitAction = async (data) => {
+  const handleSubmitAction = async ({ name, email, password }) => {
     try {
-
-      console.log(data)
-
-      const { data } = await api.post("/users", data);
+      const { data } = await api.post("/users", {
+        email,
+        name,
+        password,
+      });
 
       if (data.name && data.userId) {
-        router.push('/auth/signin')
+        router.push("/auth/signin");
       }
     } catch (error) {
       console.log("error signing up:", error);
@@ -50,7 +50,10 @@ export default function Signup() {
               </Link>
             </p>
           </div>
-          <form className="mt-8 space-y-6" onSubmit={handleSubmit(handleSubmitAction)}>
+          <form
+            className="mt-8 space-y-6"
+            onSubmit={handleSubmit(handleSubmitAction)}
+          >
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="rounded-md shadow-sm -space-y-px">
               <div>
