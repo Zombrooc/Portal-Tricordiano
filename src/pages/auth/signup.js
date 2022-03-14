@@ -5,6 +5,8 @@ import { Auth } from "aws-amplify";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 
+import { api } from "../../services/api";
+
 export default function Signup() {
 
   const router = useRouter();
@@ -13,14 +15,10 @@ export default function Signup() {
 
   const handleSubmitAction = async (data) => {
     try {
-      const { user } = await Auth.signUp({
-        username: data.email,
-        password: data.password,
-        attributes: {
-          email: data.email
-        },
-      });
-      if (user) {
+
+      const { data } = await api.post("/auth/signup", data);
+
+      if (data.name && data.userId) {
         router.push('/auth/signin')
       }
     } catch (error) {
@@ -43,7 +41,7 @@ export default function Signup() {
             </h2>
             <p className="mt-2 text-center text-sm text-gray-600">
               ou{" "}
-              <Link href="/auth/signup">
+              <Link href="/auth/signin">
                 <a className="font-medium text-indigo-600 hover:text-indigo-500">
                   entre agora
                 </a>
@@ -54,17 +52,32 @@ export default function Signup() {
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="rounded-md shadow-sm -space-y-px">
               <div>
-                <label htmlFor="email-address" className="sr-only">
+                <label htmlFor="name" className="sr-only">
+                  Nome
+                </label>
+                <input
+                  {...register("name", { required: true })}
+                  id="name"
+                  name="name"
+                  type="text"
+                  autoComplete="name"
+                  required
+                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                  placeholder="Seu nome"
+                />
+              </div>
+              <div>
+                <label htmlFor="email" className="sr-only">
                   E-mail
                 </label>
                 <input
-                  {...register("email")}
-                  id="email-address"
+                  {...register("email", { required: true })}
+                  id="email"
                   name="email"
                   type="email"
-                  autoComplete="email"
+                  autoComplete="current-email"
                   required
-                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Endereço de e-mail"
                 />
               </div>
@@ -73,26 +86,11 @@ export default function Signup() {
                   Senha
                 </label>
                 <input
-                  {...register("password")}
+                  {...register("password", { required: true })}
                   id="password"
                   name="password"
                   type="password"
                   autoComplete="current-password"
-                  required
-                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                  placeholder="Digite sua senha"
-                />
-              </div>
-              <div>
-                <label htmlFor="confirm-password" className="sr-only">
-                  Confirmar Senha
-                </label>
-                <input
-                  {...register("confirm-password")}
-                  id="confirm-password"
-                  name="confirm-password"
-                  type="confirm-password"
-                  autoComplete="current-confirm-password"
                   required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Digite sua senha"

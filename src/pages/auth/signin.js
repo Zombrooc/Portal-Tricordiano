@@ -48,7 +48,7 @@ export default function Signin() {
                   E-mail
                 </label>
                 <input
-                  {...register("email")}
+                  {...register("email", { required: true })}
                   id="email-address"
                   name="email"
                   type="email"
@@ -63,7 +63,7 @@ export default function Signin() {
                   Senha
                 </label>
                 <input
-                  {...register("password")}
+                  {...register("password", { required: true })}
                   id="password"
                   name="password"
                   type="password"

@@ -51,7 +51,7 @@ const CreatePost = () => {
               Título
             </label>
             <input
-              {...register("title")}
+              {...register("title", { required: true })}
               id="title"
               name="title"
               type="text"
