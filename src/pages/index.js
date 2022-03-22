@@ -2,8 +2,9 @@ import Head from "next/head";
 
 import SidebarLayout from "../components/SideBarLayout";
 import PostList from "../components/Posts/PostList";
+import { api } from "../services/api";
 
-export default function Home() {
+function Home({ posts }) {
   return (
     <>
       <Head>
@@ -12,8 +13,22 @@ export default function Home() {
       </Head>
 
       <SidebarLayout currentPage="Feed">
-        <PostList/>
+        <PostList posts={posts}/>
       </SidebarLayout>
     </>
   );
 }
+
+export async function getStaticProps() {
+
+    const { data } = await api.get('/posts');
+
+  return {
+    props: {
+      posts: data,
+    },
+    revalidate: 10
+  }
+}
+
+export default Home;
