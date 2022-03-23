@@ -31,4 +31,14 @@ export async function getStaticProps() {
   }
 }
 
+export async function getStaticPaths() {
+  const { data: posts } = await api.get('/posts')
+
+  const paths = posts.map((post) => ({
+    params: { id: post.id },
+  }))
+
+  return { paths, fallback: 'blocking' }
+}
+
 export default Home;
