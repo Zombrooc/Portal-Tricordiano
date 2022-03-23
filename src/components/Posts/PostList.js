@@ -1,16 +1,22 @@
+import { useContext } from "react";
+
 import CreatePost from "./CreatePost";
 import PostItem from "./PostItem";
 
+import { AuthContext } from "../../contexts/AuthContext";
+
 function PostList({ posts }) {
+  const { user, isAuthenticated } = useContext(AuthContext);
+
   return (
     <div className="flex justify-center min-w-screen h-screen text-gray-700 w-full">
       <div className="flex w-full">
         <div className="flex flex-col flex-grow border-l border-r border-gray-300">
-          <div className="flex justify-between flex-shrink-0 px-8 py-4 border-b border-gray-300">
+          {/* <div className="flex justify-between flex-shrink-0 px-8 py-4 border-b border-gray-300">
             <h1 className="text-xl font-semibold">Linha do tempo</h1>
-            {/* <button className="flex items-center h-8 px-2 text-sm bg-gray-300 rounded-sm hover:bg-gray-400">
+            <button className="flex items-center h-8 px-2 text-sm bg-gray-300 rounded-sm hover:bg-gray-400">
               sasasasasas
-  </button> */}
+            </button>
             <button
               className="flex items-center h-8 px-2 text-sm bg-gray-300 rounded-sm hover:bg-gray-400"
               type="button"
@@ -84,12 +90,12 @@ function PostList({ posts }) {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
           <div className="flex-grow h-0 overflow-auto">
-            <CreatePost />
-            {posts?.map((post) => (
+            {user?.name && isAuthenticated ? <CreatePost /> : null}
+            { posts?.length > 0 ? posts?.map((post) => (
               <PostItem key={post._id} post={post} />
-            ))}
+            )) : null}
           </div>
         </div>
       </div>
