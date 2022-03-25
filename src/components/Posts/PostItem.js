@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import React from "react";
 import moment from "moment";
+import Image from "next/image";
 
 moment.locale("pt-br");
 

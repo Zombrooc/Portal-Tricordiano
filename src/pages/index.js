@@ -6,11 +6,10 @@ import Loading from "../components/Loading";
 import PostList from "../components/Posts/PostList";
 import { api } from "../services/api";
 
-function Home({ posts }) {
-  const { data, error } = useSWR("/posts", {
-    initialData: posts,
-    fetcher: (url) => api.get(url).then((response) => response.data),
-  });
+function Home() {
+  const { data, error } = useSWR("/posts", 
+    (url) => api.get(url).then((response) => response.data)
+  );
 
   if (error) {
     return <div>Erro ao carregar os Posts, por favor volte mais tarde. 😥</div>;
@@ -31,14 +30,14 @@ function Home({ posts }) {
   );
 }
 
-export async function getServerSideProps() {
-  const { data } = await api.get("/posts");
+// export async function getServerSideProps() {
+//   const { data } = await api.get("/posts");
 
-  return {
-    props: {
-      posts: data,
-    },
-  };
-}
+//   return {
+//     props: {
+//       posts: data,
+//     },
+//   };
+// }
 
 export default Home;
