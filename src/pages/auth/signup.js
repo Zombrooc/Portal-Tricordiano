@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import { useState } from 'react';
 import Link from "next/link";
 import { LockClosedIcon } from "@heroicons/react/solid";
 import { useForm } from "react-hook-form";
@@ -6,12 +7,19 @@ import { useRouter } from "next/router";
 
 import { api } from "../../services/api";
 
+import Loading from '../../components/Loading';
+import Alert from '../../components/Alert';
+
 export default function Signup() {
   const router = useRouter();
+  const [ loading, setLoading ] = useState(false);
+  const [ errorMessage, setErrorMessage] = useState("");
+  const [ showError, setShowError ] = useState(false);
 
   const { register, handleSubmit } = useForm();
 
   const handleSubmitAction = async ({ name, email, password }) => {
+    setLoading(true);
     try {
       const { data } = await api.post("/users", {
         email,
@@ -23,14 +31,19 @@ export default function Signup() {
         router.push("/auth/signin");
       }
     } catch (error) {
-      console.log("error signing up:", error);
+      setLoading(false)
+      setShowError(true);
+      console.log(error.response);
+      setErrorMessage(error.response.data.error);
     }
   };
 
   return (
     <>
+    <Loading show={loading} />
       <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
+          <Alert message={errorMessage} show={showError} />
           <div>
             <img
               className="mx-auto h-12 w-auto"

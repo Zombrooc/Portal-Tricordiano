@@ -18,12 +18,12 @@ function Home({ posts }) {
 
   return (
     <>
-      <Loading show={!data} />
 
       <Head>
         <title>Portal Tricordiano</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
+      <Loading show={!data} />
       <SidebarLayout currentPage="Feed">
         {data && <PostList posts={data} />}
       </SidebarLayout>

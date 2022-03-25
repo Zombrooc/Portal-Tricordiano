@@ -20,19 +20,34 @@ export function AuthProvider({ children }) {
   }, []);
 
   async function signIn({ email, password }) {
-    const { data } = await api.post("/users/authenticate", { email, password });
+    try {
+      const { data } = await api.post("/users/authenticate", {
+        email,
+        password,
+      });
 
-    const { token, user } = data;
+      const { token, user } = data;
 
-    setCookie(undefined, "nextauth.token", token, {
-      maxAge: 60 * 60 * 1, // 1 hour
-    });
-    
-    api.defaults.headers["Authorization"] = `Bearer ${token}`;
-    
-    setUser(user);
+      setCookie(undefined, "nextauth.token", token, {
+        maxAge: 60 * 60 * 1, // 1 hour
+      });
 
-    Router.push('/');
+      api.defaults.headers["Authorization"] = `Bearer ${token}`;
+
+      setUser(user);
+
+      Router.push("/");
+
+      return { done: true };
+    } catch ({ response: { data } }) {
+      return data;
+      // Router.push("/auth/signin", {
+      //   query: {
+      //     error,
+      //     field,
+      //   },
+      // });
+    }
   }
 
   async function signOut() {

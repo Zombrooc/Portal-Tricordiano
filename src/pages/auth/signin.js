@@ -1,23 +1,56 @@
 /* eslint-disable @next/next/no-img-element */
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import Link from "next/link";
 import { LockClosedIcon } from "@heroicons/react/solid";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../contexts/AuthContext";
 
-export default function Signin() {
+import Loading from "../../components/Loading";
+import Alert from "../../components/Alert";
+
+export default function Signin({ error, field }) {
   const { signIn } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
+  const [showError, setShowError] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const { register, handleSubmit } = useForm();
 
+  useEffect(() => {
+    if (error && field) {
+      setShowError(true);
+      setErrorMessage(error);
+    } else {
+      setShowError(false);
+      setErrorMessage("");
+    }
+  }, [error, field]);
+
   const handleSubmitAction = async (data) => {
-    await signIn(data);
+    setLoading(true);
+
+    const response = await signIn(
+      data
+    );
+
+    setLoading(false);
+    if (response.error && response.field) {
+      setShowError(true);
+      setErrorMessage(response.error);
+    } else {
+      setShowError(false);
+      setErrorMessage("");
+      return;
+    }
   };
 
   return (
     <>
+      <Loading show={loading} />
+
       <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
+          <Alert show={showError} message={errorMessage} />
           <div>
             <img
               className="mx-auto h-12 w-auto"
