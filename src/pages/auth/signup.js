@@ -64,6 +64,7 @@ export default function Signup() {
               fontWeight: "800",
               marginTop: "17px",
               lineHeight: "2.25rem",
+              textAlign: 'center'
             }}
           >
             Crie um conta na plataforma

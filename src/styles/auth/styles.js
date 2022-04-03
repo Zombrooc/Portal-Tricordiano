@@ -82,7 +82,6 @@ export const Middlebox = styled.div`
     padding: 2rem;
     border-radius: 0;
     width: 100vw;
-    height: 100vh;
   }
 `;
 

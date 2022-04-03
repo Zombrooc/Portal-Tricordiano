@@ -152,8 +152,8 @@ const PostList = ({ posts }) => {
               </video>
             )}
 
-            {user?.name && isAuthenticated ? (
-              <footer>
+            <footer>
+              {user?.name && isAuthenticated ? (
                 <div className="actions">
                   <button
                     name={posts._id}
@@ -166,33 +166,33 @@ const PostList = ({ posts }) => {
                   {/* <Comment />
                   <Send /> */}
                 </div>
-                <strong> {post.likes} curtidas </strong>
-                <p>
-                  {post.content}{" "}
-                  <span>
-                    {" "}
-                    {post.hashtags
-                      ? post.hashtags.split(" ").map((hashtag) => {
-                          return (
-                            <Fragment key={Math.random() * 2.5}>
-                              <a
-                                href={`/hashtag/${hashtag.split("#")[1]}`}
-                                key={Math.random() * 2.5}
-                                style={{
-                                  textDecoration: "underline",
-                                  color: "var(--color-info)",
-                                }}
-                              >
-                                {hashtag}
-                              </a>{" "}
-                            </Fragment>
-                          );
-                        })
-                      : null}{" "}
-                  </span>
-                </p>
-              </footer>
-            ) : null}
+              ) : null}
+              <strong> {post.likes} curtidas </strong>
+              <p>
+                {post.content}{" "}
+                <span>
+                  {" "}
+                  {post.hashtags
+                    ? post.hashtags.split(" ").map((hashtag) => {
+                        return (
+                          <Fragment key={Math.random() * 2.5}>
+                            <a
+                              href={`/hashtag/${hashtag.split("#")[1]}`}
+                              key={Math.random() * 2.5}
+                              style={{
+                                textDecoration: "underline",
+                                color: "var(--color-info)",
+                              }}
+                            >
+                              {hashtag}
+                            </a>{" "}
+                          </Fragment>
+                        );
+                      })
+                    : null}{" "}
+                </span>
+              </p>
+            </footer>
           </article>
         );
       })}

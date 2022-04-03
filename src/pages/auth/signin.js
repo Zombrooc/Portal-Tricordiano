@@ -68,6 +68,7 @@ export default function Signin({ error, field }) {
               fontWeight: "800",
               marginTop: "17px",
               lineHeight: "2.25rem",
+              textAlign: 'center'
             }}
           >
             Entre agora com usa conta
