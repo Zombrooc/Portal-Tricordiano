@@ -7,6 +7,11 @@ export const PostListContainer = styled.section`
   margin-top: 6.257rem;
   padding: 0 30px;
 
+  svg {
+    height: 19px;
+    /* margin-right: 12px; */
+  }
+
   @media (max-width: 824px) {
     padding: 0;
   }
@@ -31,12 +36,12 @@ export const PostListContainer = styled.section`
         flex-direction: column;
 
         span {
-          font-size: 13px;
+          font-size: 14px;
 
           &.username {
             font-size: 11px;
             color: #666;
-            margin-top: 3px;
+            margin-top: -3px;
           }
         }
       }
@@ -49,7 +54,7 @@ export const PostListContainer = styled.section`
       padding-top: 10px;
 
       .actions {
-        margin-bottom: 8px;
+        margin-top: 10px;
 
         button {
           background: transparent;
@@ -69,11 +74,6 @@ export const PostListContainer = styled.section`
             svg {
               color: var(--color-success) !important;
             }
-          }
-
-          svg {
-            height: 19px;
-            /* margin-right: 12px; */
           }
         }
       }

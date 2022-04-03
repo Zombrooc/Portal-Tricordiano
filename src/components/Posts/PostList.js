@@ -136,7 +136,7 @@ const PostList = ({ posts }) => {
           <article key={post._id}>
             <header>
               <div className="user-info">
-                <span> {post.author.name} </span>
+                <span style={{ fontWeight: "bold" }}> {post.author.name} </span>
                 <span className="username">@{post.author.username}</span>
               </div>
               <More />
@@ -153,21 +153,19 @@ const PostList = ({ posts }) => {
             )}
 
             <footer>
-              {user?.name && isAuthenticated ? (
-                <div className="actions">
-                  <button
-                    name={posts._id}
-                    type="button"
-                    onClick={(event) => handleLike(post._id, event)}
-                  >
-                    {/* <Like /> */}
-                    <HeartIcon style={{ color: "var(--color-dark)" }} /> Curtir
-                  </button>
-                  {/* <Comment />
-                  <Send /> */}
-                </div>
-              ) : null}
-              <strong> {post.likes} curtidas </strong>
+              <strong
+                style={{
+                  display: "flex",
+                  justifyContent: "flex-start",
+                  alignItem: "center",
+                  marginBottom: '7px'
+                }}
+              >
+                {" "}
+                <HeartIcon style={{ color: "var(--color-dark)" }} /> 
+                {post.likes} curtidas{" "}
+              </strong>
+              
               <p>
                 {post.content}{" "}
                 <span>
@@ -186,12 +184,27 @@ const PostList = ({ posts }) => {
                             >
                               {hashtag}
                             </a>{" "}
+                             
                           </Fragment>
                         );
                       })
                     : null}{" "}
                 </span>
               </p>
+              {user?.name && isAuthenticated ? (
+                <div className="actions">
+                  <button
+                    name={posts._id}
+                    type="button"
+                    onClick={(event) => handleLike(post._id, event)}
+                  >
+                    {/* <Like /> */}
+                    <HeartIcon style={{ color: "var(--color-dark)" }} /> Curtir
+                  </button>
+                  {/* <Comment />
+                  <Send /> */}
+                </div>
+              ) : null}
             </footer>
           </article>
         );

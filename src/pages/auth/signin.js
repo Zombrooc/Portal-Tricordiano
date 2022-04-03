@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { useContext, useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { LockClosedIcon } from "@heroicons/react/solid";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../contexts/AuthContext";
@@ -11,6 +12,7 @@ import Alert from "../../components/Alert";
 import { Middlebox, BrandName } from "../../styles/auth/styles";
 
 export default function Signin({ error, field }) {
+  const router = useRouter();
   const { signIn, isAuthenticated, user } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const [showError, setShowError] = useState(null);
@@ -26,7 +28,11 @@ export default function Signin({ error, field }) {
       setShowError(false);
       setErrorMessage("");
     }
-  }, [error, field]);
+
+    if (user && isAuthenticated) {
+      router.push("/");
+    }
+  }, [error, field, user, isAuthenticated]);
 
   const handleSubmitAction = async (data) => {
     setLoading(true);
@@ -68,7 +74,7 @@ export default function Signin({ error, field }) {
               fontWeight: "800",
               marginTop: "17px",
               lineHeight: "2.25rem",
-              textAlign: 'center'
+              textAlign: "center",
             }}
           >
             Entre agora com usa conta
@@ -85,7 +91,7 @@ export default function Signin({ error, field }) {
 
           <br />
           <Alert show={showError} message={errorMessage} />
-          <form onSubmit={handleSubmit(handleSubmitAction)} >
+          <form onSubmit={handleSubmit(handleSubmitAction)}>
             <div className="formGroup">
               <label htmlFor="email">E-mail</label>
               <input
@@ -107,7 +113,7 @@ export default function Signin({ error, field }) {
               />
             </div>
             <button type="submit">
-              <LockClosedIcon style={{ width: '1.25rem', height: '1.25rem'}} />
+              <LockClosedIcon style={{ width: "1.25rem", height: "1.25rem" }} />
               Entrar
             </button>
           </form>

@@ -15,18 +15,49 @@ export function AuthProvider({ children }) {
     const { "nextauth.token": token } = parseCookies();
 
     if (token) {
-      api.get(`/users/`).then((response) => setUser(response.data));
+      try {
+        api.get(`/users/`).then((response) => setUser(response.data));
+      } catch (error) {
+        console.log(error.data);
+      }
     }
   }, []);
 
-  async function signIn({ email, password }) {
+  async function signUp({ name, email, password }) {
     try {
-      const { data } = await api.post("/users/authenticate", {
+      const {
+        data: { user, token },
+      } = await api.post("/users", {
+        name,
         email,
         password,
       });
 
-      const { token, user } = data;
+      setCookie(undefined, "nextauth.token", token, {
+        maxAge: 60 * 60 * 1, // 1 hour
+      });
+
+      api.defaults.headers["Authorization"] = `Bearer ${token}`;
+
+      setUser(user);
+
+      Router.push("/");
+
+      return { done: true };
+
+    } catch ({ response: { data } }) {
+      return data;
+    }
+  }
+
+  async function signIn({ email, password }) {
+    try {
+      const {
+        data: { token, user },
+      } = await api.post("/users/authenticate", {
+        email,
+        password,
+      });
 
       setCookie(undefined, "nextauth.token", token, {
         maxAge: 60 * 60 * 1, // 1 hour
@@ -41,12 +72,6 @@ export function AuthProvider({ children }) {
       return { done: true };
     } catch ({ response: { data } }) {
       return data;
-      // Router.push("/auth/signin", {
-      //   query: {
-      //     error,
-      //     field,
-      //   },
-      // });
     }
   }
 
@@ -61,7 +86,9 @@ export function AuthProvider({ children }) {
   }
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, signIn, signOut }}>
+    <AuthContext.Provider
+      value={{ user, isAuthenticated, signIn, signOut, signUp }}
+    >
       {children}
     </AuthContext.Provider>
   );
