@@ -19,15 +19,7 @@ export default class MyDocument extends Document {
       <Html>
         <Head>{this.props.styleTags}</Head>
         <body>
-          {/* <div className="container"> */}
           <Main />
-          {/* </div> */}
-
-          <div className="aurora-effect">
-            <div className="base one"></div>
-            <div className="base two"></div>
-            <div className="base three"></div>
-          </div>
           <NextScript />
         </body>
       </Html>

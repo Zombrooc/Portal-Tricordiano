@@ -7,6 +7,7 @@ import FAB from "../components/FAB";
 
 import { AuthContext } from "../contexts/AuthContext";
 
+import AuroraEffect from "../components/AuroraEffect";
 import Navbar from "../components/Navbar";
 import CreatePost from "../components/Posts/CreatePost";
 import PostList from "../components/Posts/PostList";
@@ -43,6 +44,7 @@ function Home({ posts }) {
         <title>Portal Tricordiano</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
+      <AuroraEffect/ >
       <Navbar />
       <CreatePost open={modalStatus} handleModal={handleModal} />
       {user && isAuthenticated ? <FAB handleModal={handleModal} /> : null}
