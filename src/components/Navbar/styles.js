@@ -84,6 +84,7 @@ export const Menu = styled.div`
     height: 100vh !important;
     overflow: hidden;
     padding: ${(props) => (props.menuOpen ? "1.2rem" : "0")};
+    padding-bottom: ${(props) => (props.menuOpen ? "4rem" : "0")};
 
     a {
       justify-content: flex-start;

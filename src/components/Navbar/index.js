@@ -27,21 +27,21 @@ const menuOptions = [
     path: "/",
     icon: <CollectionIcon style={{ width: "1.25rem", height: "1.25rem" }} />,
   },
-  // {
-  //   name: "Imóveis",
-  //   path: "/properties",
-  //   icon: <HomeIcon style={{ width: "1.25rem", height: "1.25rem" }} />,
-  // },
-  // {
-  //   name: "Lojas",
-  //   path: "/shop",
-  //   icon: <ShoppingCartIcon style={{ width: "1.25rem", height: "1.25rem" }} />,
-  // },
-  // {
-  //   name: "Eventos",
-  //   path: "/events",
-  //   icon: <TicketIcon style={{ width: "1.25rem", height: "1.25rem" }} />,
-  // },
+  {
+    name: "Imóveis",
+    path: "/properties",
+    icon: <HomeIcon style={{ width: "1.25rem", height: "1.25rem" }} />,
+  },
+  {
+    name: "Lojas",
+    path: "/shop",
+    icon: <ShoppingCartIcon style={{ width: "1.25rem", height: "1.25rem" }} />,
+  },
+  {
+    name: "Eventos",
+    path: "/events",
+    icon: <TicketIcon style={{ width: "1.25rem", height: "1.25rem" }} />,
+  },
 ];
 
 const Navbar = () => {
@@ -82,8 +82,8 @@ const Navbar = () => {
             {isAuthenticated ? (
               <UserAvatar>
                 <div className="text">
-                  <span className="name">Elian Valdez</span>
-                  <small className="username">@elian.valdez09</small>
+                  <span className="name">{ user.name }</span>
+                  <small className="username">@{ user.username }</small>
                 </div>
 
                 <button
