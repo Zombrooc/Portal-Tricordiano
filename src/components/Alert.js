@@ -1,9 +1,20 @@
 const Alert = ({ message, show }) => {
   return (
     <div
-      className={`bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative ${
-        show ? "" : "hidden"
-      }`}
+      style={{
+        background: "var(--color-danger)",
+        border: "var(--color-dark-danger)",
+        color: "var(--color-light)",
+        padding: "1rem",
+        borderRadius: "5px",
+        position: "relative",
+        display: `${show ? "block" : "none"}`,
+        width: "100%",
+        marginBottom: '1.8rem',
+      }}
+      // className={`bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative ${
+      //   show ? "" : "hidden"
+      // }`}
       role="alert"
     >
       <span className="text-center">{message}</span>

@@ -2,8 +2,8 @@ import Head from "next/head";
 
 import { api } from "../services/api";
 
-import Loading from "../components/Loading";
 import SidebarLayout from "../components/SideBarLayout";
+import Navbar from "../components/Navbar";
 import ProductList from "../components/Shop/ProductList";
 import useSWR from "swr";
 
@@ -24,10 +24,10 @@ const Shop = ({ products }) => {
         <title>Portal Tricordiano</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <Loading show={!data} />
-      <SidebarLayout currentPage="Feira do Rolo">
+      <Navbar />
+      {/* <SidebarLayout currentPage="Feira do Rolo"> */}
         <ProductList products={products} />
-      </SidebarLayout>
+      {/* </SidebarLayout> */}
     </>
   );
 };

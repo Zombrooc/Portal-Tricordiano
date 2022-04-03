@@ -8,8 +8,10 @@ import { AuthContext } from "../../contexts/AuthContext";
 import Loading from "../../components/Loading";
 import Alert from "../../components/Alert";
 
+import { Middlebox, BrandName } from "./styles";
+
 export default function Signin({ error, field }) {
-  const { signIn } = useContext(AuthContext);
+  const { signIn, isAuthenticated, user } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const [showError, setShowError] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
@@ -29,9 +31,7 @@ export default function Signin({ error, field }) {
   const handleSubmitAction = async (data) => {
     setLoading(true);
 
-    const response = await signIn(
-      data
-    );
+    const response = await signIn(data);
 
     setLoading(false);
     if (response.error && response.field) {
@@ -48,7 +48,72 @@ export default function Signin({ error, field }) {
     <>
       <Loading show={loading} />
 
-      <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div
+        className="container"
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <Middlebox>
+          <BrandName>
+            Portal
+            <br /> Tricordiano
+          </BrandName>
+          <br />
+          <span
+            style={{
+              fontSize: "1.875rem",
+              fontWeight: "800",
+              marginTop: "17px",
+              lineHeight: "2.25rem",
+            }}
+          >
+            Entre agora com usa conta
+          </span>
+          <span style={{ fontSize: "1rem" }}>
+            {" "}
+            ou{" "}
+            <Link href="/auth/signup">
+              <a style={{ color: "var(--color-success)" }}>
+                crie agora sua conta.
+              </a>
+            </Link>
+          </span>
+
+          <br />
+          <Alert show={showError} message={errorMessage} />
+          <form onSubmit={handleSubmit(handleSubmitAction)} >
+            <div className="formGroup">
+              <label htmlFor="email">E-mail</label>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                placeholder="Digite seu e-mail"
+                {...register("email", { required: true })}
+              />
+            </div>
+            <div className="formGroup">
+              <label htmlFor="password">Senha</label>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Digite sua senha"
+                {...register("password", { required: true })}
+              />
+            </div>
+            <button type="submit">
+              <LockClosedIcon style={{ width: '1.25rem', height: '1.25rem'}} />
+              Entrar
+            </button>
+          </form>
+        </Middlebox>
+      </div>
+
+      {/* <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           <Alert show={showError} message={errorMessage} />
           <div>
@@ -108,7 +173,7 @@ export default function Signin({ error, field }) {
             </div>
 
             <div className="flex items-center justify-between">
-              {/* <div className="flex items-center">
+              <div className="flex items-center">
                 <input
                   id="remember-me"
                   name="remember-me"
@@ -118,7 +183,7 @@ export default function Signin({ error, field }) {
                 <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
                   Remember me
                 </label>
-              </div> */}
+              </div>
 
               <div className="text-sm">
                 <a
@@ -146,7 +211,16 @@ export default function Signin({ error, field }) {
             </div>
           </form>
         </div>
-      </div>
+      </div> */}
     </>
   );
+}
+
+export function getServerSideProps() {
+  return {
+    props: {
+      error: null,
+      field: null,
+    },
+  };
 }
