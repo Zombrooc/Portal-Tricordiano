@@ -8,7 +8,7 @@ import { AuthContext } from "../../contexts/AuthContext";
 import Loading from "../../components/Loading";
 import Alert from "../../components/Alert";
 
-import { Middlebox, BrandName } from "./styles";
+import { Middlebox, BrandName } from "../../styles/auth/styles";
 
 export default function Signin({ error, field }) {
   const { signIn, isAuthenticated, user } = useContext(AuthContext);

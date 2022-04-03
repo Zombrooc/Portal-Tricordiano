@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 
 import { api } from "../../services/api";
 
-import { Middlebox, BrandName } from "./styles";
+import { Middlebox, BrandName } from "../../styles/auth/styles";
 
 import Loading from "../../components/Loading";
 import Alert from "../../components/Alert";
