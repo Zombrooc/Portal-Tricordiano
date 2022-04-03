@@ -1,3 +1,5 @@
+import useSWR, { SWRConfig } from "swr";
+
 import "../styles/globals.css";
 
 import { AuthProvider } from "./../contexts/AuthContext";
@@ -5,7 +7,13 @@ import { AuthProvider } from "./../contexts/AuthContext";
 function MyApp({ Component, pageProps }) {
   return (
     <AuthProvider>
-      <Component {...pageProps} />
+      <SWRConfig
+        value={{
+          refreshInterval: 1,
+        }}
+      >
+        <Component {...pageProps} />
+      </SWRConfig>
     </AuthProvider>
   );
 }

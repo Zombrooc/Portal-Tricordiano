@@ -1,5 +1,5 @@
-import { useContext } from "react";
-
+import { useContext, useRef, Fragment } from "react";
+import { HeartIcon } from "@heroicons/react/outline";
 // import CreatePost from "./CreatePost";
 // import PostItem from "./PostItem";
 
@@ -15,9 +15,26 @@ import { api } from "../../services/api";
 import { AuthContext } from "../../contexts/AuthContext";
 
 const PostList = ({ posts }) => {
+  const likeButton = useRef(null);
+
   const { user, isAuthenticated } = useContext(AuthContext);
 
-  const handleLike = (id) => {
+  const handleLike = (id, event) => {
+    // console.log(likeButton.current.name);
+
+    // Add a new ClassName to button called liked
+
+    console.log(event.target.disabled);
+
+    // Change the color of the heart icon to red
+    event.target.classList.add("liked");
+    event.target.disabled = true;
+
+    // likeButton.current.classList.add("liked");
+
+    // likeButton.current.querySelector("svg").style.color = "#ff5a5f";
+    // likeButton.current.disabled = true;
+
     api.post(`/posts/${id}/like`);
   };
 
@@ -135,21 +152,47 @@ const PostList = ({ posts }) => {
               </video>
             )}
 
-            {/* {user?.name && isAuthenticated ? (
+            {user?.name && isAuthenticated ? (
               <footer>
                 <div className="actions">
-                  <button type="button" onClick={() => handleLike(post._id)}>
-                    <Like />
+                  <button
+                    name={posts._id}
+                    type="button"
+                    onClick={(event) => handleLike(post._id, event)}
+                  >
+                    {/* <Like /> */}
+                    <HeartIcon style={{ color: "var(--color-dark)" }} /> Curtir
                   </button>
-                  <Comment />
-                  <Send />
+                  {/* <Comment />
+                  <Send /> */}
                 </div>
                 <strong> {post.likes} curtidas </strong>
                 <p>
-                  {post.content} <span> {post.hashtags} </span>
+                  {post.content}{" "}
+                  <span>
+                    {" "}
+                    {post.hashtags
+                      ? post.hashtags.split(" ").map((hashtag) => {
+                          return (
+                            <Fragment key={Math.random() * 2.5}>
+                              <a
+                                href={`/hashtag/${hashtag.split("#")[1]}`}
+                                key={Math.random() * 2.5}
+                                style={{
+                                  textDecoration: "underline",
+                                  color: "var(--color-info)",
+                                }}
+                              >
+                                {hashtag}
+                              </a>{" "}
+                            </Fragment>
+                          );
+                        })
+                      : null}{" "}
+                  </span>
                 </p>
               </footer>
-            ) : null} */}
+            ) : null}
           </article>
         );
       })}

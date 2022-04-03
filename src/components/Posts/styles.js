@@ -45,7 +45,12 @@ export const PostListContainer = styled.section`
     footer {
       padding: 20px;
 
+      padding: 20px;
+      padding-top: 10px;
+
       .actions {
+        margin-bottom: 8px;
+
         button {
           background: transparent;
           border: 0;
@@ -53,11 +58,23 @@ export const PostListContainer = styled.section`
           width: auto;
           display: initial;
           padding: 0;
-        }
+          color: var(--color-dark);
+          display: flex;
+          align-items: center;
+          justify-content: center;
 
-        svg {
-          height: 19px;
-          margin-right: 12px;
+          &.liked {
+            color: var(--color-success);
+
+            svg {
+              color: var(--color-success) !important;
+            }
+          }
+
+          svg {
+            height: 19px;
+            /* margin-right: 12px; */
+          }
         }
       }
 

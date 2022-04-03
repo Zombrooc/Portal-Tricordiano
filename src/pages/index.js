@@ -7,13 +7,17 @@ import PostList from "../components/Posts/PostList";
 import { api } from "../services/api";
 
 function Home({ posts }) {
-  // const { data, error } = useSWR("/posts", (url) =>
-  //   api.get(url).then((response) => response.data)
-  // );
+  const { data, error } = useSWR("/posts", (url) =>
+    api.get(url).then((response) => response.data)
+  );
 
-  // if (error) {
-  //   return <div>Erro ao carregar os Posts, por favor volte mais tarde. 😥</div>;
-  // }
+  if (!data) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Erro ao carregar os Posts, por favor volte mais tarde. 😥</div>;
+  }
 
   return (
     <>
@@ -23,19 +27,17 @@ function Home({ posts }) {
       </Head>
       <Navbar />
       {/* <SidebarLayout currentPage="Feed"> */}
-      {posts && <PostList posts={posts} />}
+      {posts && <PostList posts={data} />}
       {/* </SidebarLayout> */}
     </>
   );
 }
 
 export async function getServerSideProps({ req, res }) {
-
   res.setHeader(
-    'Cache-Control',
-    'public, s-maxage=10, stale-while-revalidate=59'
-  )
-
+    "Cache-Control",
+    "public, s-maxage=10, stale-while-revalidate=59"
+  );
 
   const { data } = await api.get("/posts");
 
