@@ -19,7 +19,7 @@ export const PostListContainer = styled.section`
 
 export const ArticleItem = styled.article`
   background: #fff;
-  margin-top: 13px;
+  /* margin-top: 13px; */
   width: 100%;
 
   & > img,
