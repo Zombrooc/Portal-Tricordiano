@@ -66,7 +66,7 @@ const PostItem = ({ post }) => {
           {post.likes.length} curtidas{" "}
         </strong>
 
-        <p>
+        <p style={{ wordWrap: 'break-word'}}>
           {post.content}{" "}
           <span>
             {" "}
