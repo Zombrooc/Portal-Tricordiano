@@ -6,7 +6,7 @@ export const FABWrapper = styled.button`
 
   position: fixed;
   right: 10px;
-  bottom: 10px;
+  bottom: 40px;
 
   border-radius: 99999px;
 

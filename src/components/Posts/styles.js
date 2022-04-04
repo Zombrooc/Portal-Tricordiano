@@ -75,6 +75,7 @@ export const ArticleItem = styled.article`
 
           svg {
             color: var(--color-success) !important;
+            fill: var(--color-success);
           }
         }
 

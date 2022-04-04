@@ -27,24 +27,24 @@ const menuOptions = [
     path: "/",
     icon: <CollectionIcon style={{ width: "1.25rem", height: "1.25rem" }} />,
   },
-  {
-    name: "Imóveis",
-    path: "/properties",
-    icon: <HomeIcon style={{ width: "1.25rem", height: "1.25rem" }} />,
-  },
+  // {
+  //   name: "Imóveis",
+  //   path: "/properties",
+  //   icon: <HomeIcon style={{ width: "1.25rem", height: "1.25rem" }} />,
+  // },
   {
     name: "Lojas",
     path: "/shop",
     icon: <ShoppingCartIcon style={{ width: "1.25rem", height: "1.25rem" }} />,
   },
-  {
-    name: "Eventos",
-    path: "/events",
-    icon: <TicketIcon style={{ width: "1.25rem", height: "1.25rem" }} />,
-  },
+  // {
+  //   name: "Eventos",
+  //   path: "/events",
+  //   icon: <TicketIcon style={{ width: "1.25rem", height: "1.25rem" }} />,
+  // },
 ];
 
-const Navbar = () => {
+const Navbar = ({ currentPage }) => {
   const size = useWindowSize();
 
   const [menuStatus, setMenuStatus] = useState(false);
@@ -72,7 +72,7 @@ const Navbar = () => {
         <Menu menuOpen={menuStatus}>
           {menuOptions.map((option, index) => (
             <Link href={option.path} key={index}>
-              <a>
+              <a className={`${currentPage === option.name ? 'active' : null}`}>
                 {option.icon}
                 <span>{option.name}</span>
               </a>

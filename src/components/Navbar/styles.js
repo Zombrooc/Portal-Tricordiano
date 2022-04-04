@@ -55,6 +55,14 @@ export const Menu = styled.div`
       margin-left: 0.5rem;
     }
 
+    &.active {
+      color: var(--color-success);
+
+      span {
+        color: var(--color-success);
+      }
+    }
+
     &:hover {
       color: var(--color-success);
 
@@ -79,7 +87,7 @@ export const Menu = styled.div`
     border-radius: 0px 20px 20px 0px;
     border: 1px solid rgba(255, 255, 255, 0.18);
 
-    width: ${(props) => (props.menuOpen ? "15rem"  : "0")};
+    width: ${(props) => (props.menuOpen ? "15rem" : "0")};
     max-width: 100vw;
     height: 100vh !important;
     overflow: hidden;
@@ -223,7 +231,7 @@ export const UserAvatar = styled.div`
   @media (max-width: 824px) {
     flex-direction: column;
     justify-content: flex-end;
-    
+
     margin-left: 0;
 
     .signoutButton {
