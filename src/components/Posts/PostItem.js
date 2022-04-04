@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { useContext, useRef, Fragment } from "react";
 import moment from "moment";
+import 'moment/locale/pt-br';
 import Image from "next/image";
 import { HeartIcon } from "@heroicons/react/outline";
 
@@ -12,9 +13,9 @@ import { api } from "../../services/api";
 
 import { ArticleItem } from "./styles";
 
-moment.locale("pt-br");
-
 const PostItem = ({ post }) => {
+  moment.locale("pt");
+
   const { user, isAuthenticated } = useContext(AuthContext);
 
   const handleLike = (id) => {
@@ -61,12 +62,10 @@ const PostItem = ({ post }) => {
             marginBottom: "7px",
           }}
         >
-          {" "}
-          <HeartIcon style={{ color: "var(--color-dark)" }} /> 
           {post.likes.length} curtidas{" "}
         </strong>
 
-        <p style={{ wordWrap: 'break-word'}}>
+        <p style={{ wordWrap: "break-word" }}>
           {post.content}{" "}
           <span>
             {" "}
@@ -106,13 +105,17 @@ const PostItem = ({ post }) => {
                   width: "1.25rem",
                   height: "1.25rem",
                 }}
-              /> 
-              Curtir
+              />
+                Curtir
             </button>
             {/* <Comment />
                   <Send /> */}
           </div>
         ) : null}
+        {/* Get post time since now */}
+        <time style={{ fontSize: "0.7rem" }}>
+          {moment(new Date(post.createdAt)).startOf("hour").fromNow()}
+        </time>
       </footer>
     </ArticleItem>
     // <div className="flex w-full p-8 border-b border-gray-300">
