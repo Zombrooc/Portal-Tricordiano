@@ -9,6 +9,7 @@ import { AuthContext } from "../../contexts/AuthContext";
 
 import { Middlebox, BrandName } from "../../styles/auth/styles";
 
+import AuroraEffect from '../../components/AuroraEffect';
 import Loading from "../../components/Loading";
 import Alert from "../../components/Alert";
 
@@ -53,6 +54,7 @@ export default function Signup({ error, field }) {
   return (
     <>
       <Loading show={loading} />
+      <AuroraEffect />
 
       <div
         className="container"

@@ -6,6 +6,7 @@ import { LockClosedIcon } from "@heroicons/react/solid";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../contexts/AuthContext";
 
+import AuroraEffect from '../../components/AuroraEffect';
 import Loading from "../../components/Loading";
 import Alert from "../../components/Alert";
 
@@ -53,6 +54,7 @@ export default function Signin({ error, field }) {
   return (
     <>
       <Loading show={loading} />
+      <AuroraEffect />
 
       <div
         className="container"
