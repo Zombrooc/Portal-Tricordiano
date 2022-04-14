@@ -1,4 +1,4 @@
-import useSWR, { SWRConfig } from "swr";
+import { SWRConfig } from "swr";
 
 import "../styles/globals.css";
 
