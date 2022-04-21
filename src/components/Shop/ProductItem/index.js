@@ -37,10 +37,11 @@ const ProductItem = ({ product }) => {
           productId: product,
         })
         .then(({ data: { clientSecret } }) => {
-          router.push({
-            pathname: "/checkout",
-            query: { clientSecret },
-          });
+          // router.push({
+          //   pathname: "/checkout",
+          //   query: { clientSecret },
+          // });
+          router.push(`/checkout?clientSecret=${clientSecret}`);
         });
     } else {
       router.push("/auth/signin");
