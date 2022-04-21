@@ -32,17 +32,30 @@ const ProductItem = ({ product }) => {
 
   const handleProductCheckout = async (product) => {
     if (isAuthenticated) {
-      api
-        .post("/checkout/clientSecret", {
-          productId: product,
-        })
-        .then(({ data: { clientSecret } }) => {
-          // router.push({
-          //   pathname: "/checkout",
-          //   query: { clientSecret },
-          // });
-          router.push(`/checkout?clientSecret=${clientSecret}`);
-        });
+      //   api
+      //     .post("/checkout/clientSecret", {
+      //       productId: product,
+      //     })
+      //     .then(({ data: { clientSecret } }) => {
+      //       // router.push({
+      //       //   pathname: "/checkout",
+      //       //   query: { clientSecret },
+      //       // });
+      //       router.push(`/checkout?clientSecret=${clientSecret}`);
+      //     });
+      // } else {
+      //   router.push("/auth/signin");
+      // }
+
+      const {
+        data: { clientSecret },
+      } = await api.post("/checkout/clientSecret", {
+        productId: product,
+      });
+
+      router.push(`/checkout?clientSecret=${clientSecret}`);
+
+      return;
     } else {
       router.push("/auth/signin");
     }
