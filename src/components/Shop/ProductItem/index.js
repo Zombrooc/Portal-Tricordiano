@@ -48,12 +48,12 @@ const ProductItem = ({ product }) => {
       // }
 
       const {
-        data: { clientSecret },
+        data
       } = await api.post("/checkout/clientSecret", {
         productId: product,
       });
 
-      console.log(clientSecret)
+      console.log(data)
 
       router.push(`/checkout?clientSecret=${clientSecret}`);
     } else {
