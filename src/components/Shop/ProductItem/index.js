@@ -18,48 +18,48 @@ const ProductItem = ({ product }) => {
 
   const { isAuthenticated } = useContext(AuthContext);
 
-  // const handleProductCheckout = async (product) => {
-  //   if (isAuthenticated) {
-  //     api
-  //       .post("/checkout/createCheckoutSession", {
-  //         productId: product,
-  //       })
-  //       .then(({ data }) => router.push(data.redirectURL));
-  //   } else {
-  //     router.push("/auth/signin");
-  //   }
-  // };
-
   const handleProductCheckout = async (product) => {
     if (isAuthenticated) {
-      //   api
-      //     .post("/checkout/clientSecret", {
-      //       productId: product,
-      //     })
-      //     .then(({ data: { clientSecret } }) => {
-      //       // router.push({
-      //       //   pathname: "/checkout",
-      //       //   query: { clientSecret },
-      //       // });
-      //       router.push(`/checkout?clientSecret=${clientSecret}`);
-      //     });
-      // } else {
-      //   router.push("/auth/signin");
-      // }
-
-      const {
-        data
-      } = await api.post("/checkout/clientSecret", {
-        productId: product,
-      });
-
-      console.log(data)
-
-      router.push(`/checkout?clientSecret=${data.client_secret}`);
+      api
+        .post("/checkout/createCheckoutSession", {
+          productId: product,
+        })
+        .then(({ data }) => router.push(data.redirectURL));
     } else {
       router.push("/auth/signin");
     }
   };
+
+  // const handleProductCheckout = async (product) => {
+  //   if (isAuthenticated) {
+  //     //   api
+  //     //     .post("/checkout/clientSecret", {
+  //     //       productId: product,
+  //     //     })
+  //     //     .then(({ data: { clientSecret } }) => {
+  //     //       // router.push({
+  //     //       //   pathname: "/checkout",
+  //     //       //   query: { clientSecret },
+  //     //       // });
+  //     //       router.push(`/checkout?clientSecret=${clientSecret}`);
+  //     //     });
+  //     // } else {
+  //     //   router.push("/auth/signin");
+  //     // }
+
+  //     const {
+  //       data
+  //     } = await api.post("/checkout/clientSecret", {
+  //       productId: product,
+  //     });
+
+  //     console.log(data)
+
+  //     router.push(`/checkout?clientSecret=${data.client_secret}`);
+  //   } else {
+  //     router.push("/auth/signin");
+  //   }
+  // };
 
   return (
     <ProductCard>
