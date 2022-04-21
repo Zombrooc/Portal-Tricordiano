@@ -53,6 +53,8 @@ const ProductItem = ({ product }) => {
         productId: product,
       });
 
+      console.log(clientSecret)
+
       router.push(`/checkout?clientSecret=${clientSecret}`);
     } else {
       router.push("/auth/signin");
