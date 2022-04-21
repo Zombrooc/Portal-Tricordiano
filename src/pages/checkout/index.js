@@ -9,10 +9,8 @@ import AuroraEffect from "../../components/AuroraEffect";
 
 const stripePromise = loadStripe(`${process.env.STRIPE_PUBLISHABLE_KEY}`);
 
-const Checkout = () => {
+const Checkout = ({ clientSecret }) => {
   const router = useRouter();
-
-  const [clientSecret, setClientSecret] = useState(router.query.clientSecret);
 
   return (
     <>
@@ -39,5 +37,14 @@ const Checkout = () => {
     </>
   );
 };
+
+export function getServerSideProps(context) {
+  const { query } = context;
+  return {
+    props: {
+      clientSecret: query.clientSecret,
+    },
+  };
+}
 
 export default Checkout;
