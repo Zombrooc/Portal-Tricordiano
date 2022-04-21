@@ -54,8 +54,6 @@ const ProductItem = ({ product }) => {
       });
 
       router.push(`/checkout?clientSecret=${clientSecret}`);
-
-      return;
     } else {
       router.push("/auth/signin");
     }
