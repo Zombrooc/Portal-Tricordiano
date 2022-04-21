@@ -7,7 +7,7 @@ import {
 } from "@stripe/react-stripe-js";
 import { CreditCardIcon, DocumentTextIcon } from "@heroicons/react/outline";
 
-const CheckoutForm = () => {
+const CheckoutForm = ({ options, stripePromise }) => {
   const stripe = useStripe();
   const elements = useElements();
 
@@ -146,9 +146,10 @@ const CheckoutForm = () => {
             billingDetails: 'auto',
             wallets: {
               googlePay: 'auto'
-            }
+            },
+            ...options
           }
-        }/>
+        } stripe={stripePromise} />
 
         {/* <div
           style={{ display: `${paymentMethod === "CC" ? "block" : "none"}` }}
