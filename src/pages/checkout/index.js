@@ -12,7 +12,7 @@ const stripePromise = loadStripe(`${process.env.STRIPE_PUBLISHABLE_KEY}`);
 const Checkout = () => {
   const router = useRouter();
 
-  const [intent, setIntent] = useState(router.query);
+  const [clientSecret, setClientSecret] = useState(router.query.clientSecret);
 
   return (
     <>
@@ -27,9 +27,9 @@ const Checkout = () => {
           height: "100vh",
         }}
       >
-        {intent && (
+        {clientSecret && (
           <Elements
-            options={{ clientSecret: intent.client_secret, loader: 'always', ...intent }}
+            options={{ clientSecret: clientSecret, loader: 'always' }}
             stripe={stripePromise}
           >
             <CheckoutForm />
