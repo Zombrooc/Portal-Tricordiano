@@ -30,7 +30,7 @@ const Checkout = ({ clientSecret }) => {
             options={{ clientSecret: clientSecret, loader: 'always' }}
             stripe={stripePromise}
           >
-            <CheckoutForm options={options} stripe={stripePromise}/>
+            <CheckoutForm options={{ clientSecret: clientSecret, loader: 'always' }} stripe={stripePromise}/>
           </Elements>
         )}
       </div>
