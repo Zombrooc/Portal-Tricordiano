@@ -23,13 +23,14 @@ export function AuthProvider({ children }) {
     }
   }, []);
 
-  async function signUp({ name, email, password }) {
+  async function signUp({ name, email, cpf, password }) {
     try {
       const {
         data: { user, token },
       } = await api.post("/users", {
         name,
         email,
+        cpf,
         password,
       });
 
@@ -41,7 +42,7 @@ export function AuthProvider({ children }) {
 
       setUser(user);
 
-      Router.push("/");
+      Router.back();
 
       return { done: true };
 
@@ -67,7 +68,7 @@ export function AuthProvider({ children }) {
 
       setUser(user);
 
-      Router.push("/");
+      Router.back();
 
       return { done: true };
     } catch ({ response: { data } }) {

@@ -37,9 +37,9 @@ export default function Signup({ error, field }) {
     }
   }, [error, field, user, isAuthenticated]);
 
-  const handleSubmitAction = async ({ name, email, password }) => {
+  const handleSubmitAction = async ({ name, email, cpf, password }) => {
     setLoading(true);
-    const response = await signUp({ name, email, password });
+    const response = await signUp({ name, email, cpf, password });
 
     setLoading(false);
     if (response.error && response.field) {
@@ -110,6 +110,16 @@ export default function Signup({ error, field }) {
                 id="email"
                 placeholder="Digite seu e-mail"
                 {...register("email", { required: true })}
+              />
+            </div>
+            <div className="formGroup">
+              <label htmlFor="cpf">CPF</label>
+              <input
+                type="text"
+                name="cpf"
+                id="cpf"
+                placeholder="Digite seu e-mail"
+                {...register("cpf", { required: true })}
               />
             </div>
             <div className="formGroup">

@@ -9,7 +9,7 @@ function MyApp({ Component, pageProps }) {
     <AuthProvider>
       <SWRConfig
         value={{
-          refreshInterval: 1,
+          refreshInterval: 10,
         }}
       >
         <Component {...pageProps} />

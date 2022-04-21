@@ -36,14 +36,12 @@ const ProductItem = ({ product }) => {
         .post("/checkout/clientSecret", {
           productId: product,
         })
-        .then(({ data: { client_secret } }) =>
+        .then(({ data }) => {
           router.push({
             pathname: "/checkout",
-            query: {
-              client_secret,
-            },
-          })
-        );
+            query: { ...data.paymentIntent },
+          });
+        });
     } else {
       router.push("/auth/signin");
     }

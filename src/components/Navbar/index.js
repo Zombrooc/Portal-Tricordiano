@@ -96,7 +96,7 @@ const Navbar = ({ currentPage }) => {
               </UserAvatar>
             ) : (
               <>
-                <Link href="/auth/signin">
+                <Link href="/auth/signin" replace>
                   <a>
                     <ArrowCircleRightIcon
                       style={{ width: "1.25rem", height: "1.25rem" }}
@@ -104,7 +104,7 @@ const Navbar = ({ currentPage }) => {
                     <span>Entrar</span>
                   </a>
                 </Link>
-                <Link href="/auth/signup">
+                <Link href="/auth/signup" replace>
                   <a>
                     <UserAddIcon
                       style={{ width: "1.25rem", height: "1.25rem" }}
