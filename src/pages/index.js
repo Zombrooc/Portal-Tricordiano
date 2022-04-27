@@ -1,6 +1,7 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useRef, useEffect } from "react";
 import Head from "next/head";
 import useSWR from "swr";
+
 import FAB from "../components/FAB";
 
 import { AuthContext } from "../contexts/AuthContext";
@@ -13,28 +14,86 @@ import PostList from "../components/Posts/PostList";
 
 import { api } from "../services/api";
 
-function Home({ posts }) {
+function Home({ preRenderedPostsData }) {
+  const loadMoreRef = useRef(null);
+
   const [modalStatus, setModalStatus] = useState(false);
+
+  const [posts, setPosts] = useState(preRenderedPostsData?.posts);
+  const [currentPage, setCurrentPage] = useState(
+    preRenderedPostsData?.currentPage
+  );
+  const [totalPages, setTotalPages] = useState(
+    preRenderedPostsData?.totalPages
+  );
+  const [hasMore, setHasMore] = useState(true);
 
   const { user, isAuthenticated } = useContext(AuthContext);
 
-  const { data, error } = useSWR("/posts", (url) =>
-    api.get(url).then((response) => response.data)
-  );
+  useEffect(() => {
+    const options = {
+      root: null,
+      rootMargin: "20px",
+      threshold: 1.0,
+    };
 
-  if (!data) {
-    return <div>Loading...</div>;
-  }
+    const observer = new IntersectionObserver((entities) => {
+      const target = entities[0];
 
-  if (error) {
-    return <div>Erro ao carregar os Posts, por favor volte mais tarde. 😥</div>;
-  }
+      if (target.isIntersecting) {
+        setCurrentPage((old) => old + 1);
+      }
+    }, options);
 
-  function handleModal() {
+    if (loadMoreRef.current) {
+      observer.observe(loadMoreRef.current);
+    }
+  }, []);
+
+  useEffect(() => {
+    setHasMore(currentPage < totalPages);
+
+    const handleResquest = async () => {
+      const {
+        data: { posts: newPosts },
+      } = await api.get("/posts", {
+        params: {
+          page: currentPage,
+        },
+      });
+
+      if (!newPosts.length) {
+        // console.log("Os posts acabaram");
+        return;
+      }
+
+      setPosts([...posts, ...newPosts]);
+    };
+
+    handleResquest();
+  }, [currentPage]);
+
+  // const { data, error } = useSWR(
+  //   "/posts?page=" + currentPage,
+  //   (url) => api.get(url).then((response) => response.data),
+  //   {
+  //     fallback: posts,
+  //   }
+  // );
+
+  // if (!data) {
+  //   return <div>Loading...</div>;
+  // }
+
+  // if (error) {
+  //   return <div>Erro ao carregar os Posts, por favor volte mais tarde. 😥</div>;
+  // }
+
+  const handleModal = () => {
     setModalStatus(!modalStatus);
 
     return;
-  }
+  };
 
   return (
     <>
@@ -46,24 +105,41 @@ function Home({ posts }) {
       <Navbar currentPage="Feed" />
       <CreatePost open={modalStatus} handleModal={handleModal} />
       {user && isAuthenticated ? <FAB handleModal={handleModal} /> : null}
-      {/* <SidebarLayout currentPage="Feed"> */}
-      {posts && <PostList posts={data} />}
-      {/* </SidebarLayout> */}
+      {/* {posts && <PostList posts={data} />} */}
+
+      {posts && <PostList posts={posts} />}
+      <p
+        ref={loadMoreRef}
+        style={{
+          textAlign: "center",
+          fontsize: "1.5rem",
+          fontWeight: "bold",
+          margin: "15px",
+        }}
+      >
+        {hasMore ? "Carregando mais Post..." : "Isso é tudo por enquanto..."}
+      </p>
     </>
   );
 }
 
 export async function getServerSideProps({ req, res }) {
-  res.setHeader(
-    "Cache-Control",
-    "public, s-maxage=10, stale-while-revalidate=59"
-  );
+  // res.setHeader(
+  //   "Cache-Control",
+  //   "public, s-maxage=10, stale-while-revalidate=59"
+  // );
 
-  const { data } = await api.get("/posts");
+  const {
+    data: { posts, totalPages, currentPage },
+  } = await api.get("/posts");
 
   return {
     props: {
-      posts: data,
+      preRenderedPostsData: {
+        posts,
+        totalPages,
+        currentPage,
+      },
     },
   };
 }
