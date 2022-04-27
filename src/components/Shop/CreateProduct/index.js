@@ -10,7 +10,7 @@ const CreateProduct = ({ open, handleModal }) => {
   const { register, handleSubmit, resetField } = useForm();
 
   const handleSubmitAction = async (data) => {
-    handleModal()
+    handleModal();
     const formData = new FormData();
 
     if (data.image) {
@@ -27,7 +27,11 @@ const CreateProduct = ({ open, handleModal }) => {
       },
     };
 
-    const { data: responseData } = await api.post(`/products`, formData, config);
+    const { data: responseData } = await api.post(
+      `/products`,
+      formData,
+      config
+    );
 
     if (responseData.error) {
       alert("Erro ao criar o produto");
@@ -51,37 +55,47 @@ const CreateProduct = ({ open, handleModal }) => {
       <br />
       <form onSubmit={handleSubmit(handleSubmitAction)}>
         <div className="formGroup">
-          <label htmlFor="title"> Nome do Produto </label>
-          <input
-            type="text"
-            name="name"
-            id="title"
-            placeholder="Digite o nome do seu produto"
-            {...register("title", { required: true })}
-          />
+          <label htmlFor="title">
+            {" "}
+            Nome do Produto
+            <input
+              type="text"
+              name="name"
+              id="title"
+              placeholder="Digite o nome do seu produto"
+              {...register("title", { required: true })}
+            />
+          </label>
         </div>
         <div className="formGroup">
-          <label htmlFor="description">Descrição</label>
-          <textarea
-            type="text"
-            name="description"
-            id="description"
-            placeholder="Digite a descrição do seu produto"
-            {...register("description", { required: true })}
-          />
+          <label htmlFor="description">
+            Descrição
+            <textarea
+              type="text"
+              name="description"
+              id="description"
+              placeholder="Digite a descrição do seu produto"
+              {...register("description", { required: true })}
+            />
+          </label>
         </div>
         <div className="formGroup">
-          <label htmlFor="price">Preço</label>
-          <input
-            type="number"
-            name="price"
-            id="price"
-            placeholder="Digite o valor do seu produto"
-            {...register("price", { required: true })}
-          />
+          <label htmlFor="price">
+            Preço
+            <input
+              type="number"
+              name="price"
+              id="price"
+              placeholder="Digite o valor do seu produto"
+              {...register("price", { required: true })}
+            />
+          </label>
         </div>
         <div className="formGroup">
-          <input {...register("image")} id="image" type="file" />
+          <label htmlFor="image">
+            Imagem
+            <input {...register("image")} id="image" type="file" />
+          </label>
         </div>
         <button type="submit">Criar Produto</button>
       </form>

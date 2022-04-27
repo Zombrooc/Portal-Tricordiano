@@ -7,7 +7,7 @@ const Properties = () => {
   return (
     <>
       <Head>
-        <title>Portal Tricordiano</title>
+        <title>Propriedades - Portal Tricordiano</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
 

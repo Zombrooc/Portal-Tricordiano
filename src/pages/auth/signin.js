@@ -6,8 +6,8 @@ import { LockClosedIcon } from "@heroicons/react/solid";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../contexts/AuthContext";
 
-import AuroraEffect from '../../components/AuroraEffect';
-import Loading from "../../components/Loading";
+import AuroraEffect from "../../components/AuroraEffect";
+// import Loading from "../../components/Loading";
 import Alert from "../../components/Alert";
 
 import { Middlebox, BrandName } from "../../styles/auth/styles";
@@ -53,7 +53,7 @@ export default function Signin({ error, field }) {
 
   return (
     <>
-      <Loading show={loading} />
+      {/* <Loading show={loading} /> */}
       <AuroraEffect />
 
       <div
@@ -95,24 +95,28 @@ export default function Signin({ error, field }) {
           <Alert show={showError} message={errorMessage} />
           <form onSubmit={handleSubmit(handleSubmitAction)}>
             <div className="formGroup">
-              <label htmlFor="email">E-mail</label>
-              <input
-                type="email"
-                name="email"
-                id="email"
-                placeholder="Digite seu e-mail"
-                {...register("email", { required: true })}
-              />
+              <label htmlFor="email">
+                E-mail
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  placeholder="Digite seu e-mail"
+                  {...register("email", { required: true })}
+                />
+              </label>
             </div>
             <div className="formGroup">
-              <label htmlFor="password">Senha</label>
-              <input
-                type="password"
-                name="password"
-                id="password"
-                placeholder="Digite sua senha"
-                {...register("password", { required: true })}
-              />
+              <label htmlFor="password">
+                Senha
+                <input
+                  type="password"
+                  name="password"
+                  id="password"
+                  placeholder="Digite sua senha"
+                  {...register("password", { required: true })}
+                />
+              </label>
             </div>
             <button type="submit">
               <LockClosedIcon style={{ width: "1.25rem", height: "1.25rem" }} />

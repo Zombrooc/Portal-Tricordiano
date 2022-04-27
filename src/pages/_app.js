@@ -1,6 +1,6 @@
 import { SWRConfig } from "swr";
 
-import "../styles/globals.css";
+import "../styles/globals.scss";
 
 import { AuthProvider } from "./../contexts/AuthContext";
 

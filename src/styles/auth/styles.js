@@ -21,63 +21,6 @@ export const Middlebox = styled.div`
 
   padding: 2rem 3rem;
 
-  form {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-
-    .formGroup {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-bottom: 1rem;
-
-      width: 100%;
-
-      label {
-        align-self: flex-start;
-        margin-left: 5px;
-      }
-    }
-
-    button[type="submit"] {
-      width: 100%;
-      height: 3rem;
-      border-radius: 99999px;
-      background: var(--color-success);
-      color: var(--color-light);
-      border: none;
-      font-size: 1rem;
-      font-weight: 600;
-      margin-top: 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      position: relative;
-
-      transition: all 0.2s ease-in-out;
-
-      svg {
-        position: absolute;
-        left: 1rem;
-        top: 0.85rem;
-
-        opacity: 0.5;
-
-        transition: all 0.2s ease-in-out;
-      }
-
-      &:hover {
-        svg {
-          opacity: 1;
-        }
-
-        background: var(--color-dark-success);
-      }
-    }
-  }
-
   @media (max-width: 824px) {
     padding: 2rem;
     border-radius: 0;

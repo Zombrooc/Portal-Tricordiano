@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import Head from "next/head";
 import { useState, useEffect, useContext } from "react";
 import Link from "next/link";
 import { UserAddIcon } from "@heroicons/react/solid";
@@ -9,7 +10,7 @@ import { AuthContext } from "../../contexts/AuthContext";
 
 import { Middlebox, BrandName } from "../../styles/auth/styles";
 
-import AuroraEffect from '../../components/AuroraEffect';
+import AuroraEffect from "../../components/AuroraEffect";
 import Loading from "../../components/Loading";
 import Alert from "../../components/Alert";
 
@@ -53,6 +54,9 @@ export default function Signup({ error, field }) {
   };
   return (
     <>
+      <Head>
+        <title> Criar Conta | Portal Tricordiano </title>
+      </Head>
       <Loading show={loading} />
       <AuroraEffect />
 
@@ -93,44 +97,75 @@ export default function Signup({ error, field }) {
           <Alert show={showError} message={errorMessage} />
           <form onSubmit={handleSubmit(handleSubmitAction)}>
             <div className="formGroup">
-              <label htmlFor="name"> Nome </label>
-              <input
-                type="text"
-                name="name"
-                id="name"
-                placeholder="Digite seu nome"
-                {...register("name", { required: true })}
-              />
+              <label htmlFor="name">
+                {" "}
+                Nome
+                <input
+                  type="text"
+                  name="name"
+                  id="name"
+                  placeholder="Digite seu nome"
+                  {...register("name", { required: true })}
+                />
+              </label>
             </div>
             <div className="formGroup">
-              <label htmlFor="email">E-mail</label>
-              <input
-                type="email"
-                name="email"
-                id="email"
-                placeholder="Digite seu e-mail"
-                {...register("email", { required: true })}
-              />
+              <label htmlFor="email">
+                E-mail
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  placeholder="Digite seu e-mail"
+                  {...register("email", { required: true })}
+                />
+              </label>
             </div>
             <div className="formGroup">
-              <label htmlFor="cpf">CPF</label>
-              <input
-                type="text"
-                name="cpf"
-                id="cpf"
-                placeholder="Digite seu e-mail"
-                {...register("cpf", { required: true })}
-              />
+              <label htmlFor="cpf">
+                CPF
+                <input
+                  type="text"
+                  name="cpf"
+                  id="cpf"
+                  placeholder="Digite seu CPF"
+                  {...register("cpf", { required: true })}
+                />
+              </label>
             </div>
             <div className="formGroup">
-              <label htmlFor="password">Senha</label>
-              <input
-                type="password"
-                name="password"
-                id="password"
-                placeholder="Digite sua senha"
-                {...register("password", { required: true })}
-              />
+              <label htmlFor="address">
+                Endereço
+                <input
+                  type="text"
+                  name="address"
+                  id="address"
+                  placeholder="Digite seu e-mail"
+                  {...register("address", { required: true })}
+                />
+              </label>
+              <label htmlFor="address">
+                Número
+                <input
+                  type="text"
+                  name="number"
+                  id="number"
+                  placeholder="Digite seu e-mail"
+                  {...register("number", { required: true })}
+                />
+              </label>
+            </div>
+            <div className="formGroup">
+              <label htmlFor="password">
+                Senha
+                <input
+                  type="password"
+                  name="password"
+                  id="password"
+                  placeholder="Digite sua senha"
+                  {...register("password", { required: true })}
+                />
+              </label>
             </div>
             <button type="submit">
               <UserAddIcon style={{ width: "1.25rem", height: "1.25rem" }} />

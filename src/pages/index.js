@@ -5,6 +5,7 @@ import FAB from "../components/FAB";
 
 import { AuthContext } from "../contexts/AuthContext";
 
+// import AuroraEffect from "../components/AuroraEffect";
 import AuroraEffect from "../components/AuroraEffect";
 import Navbar from "../components/Navbar";
 import CreatePost from "../components/Posts/CreatePost";
