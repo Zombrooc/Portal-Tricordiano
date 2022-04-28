@@ -96,6 +96,8 @@ function Home({ preRenderedPostsData }) {
     return;
   };
 
+  console.log(posts);
+
   return (
     <>
       <Head>
