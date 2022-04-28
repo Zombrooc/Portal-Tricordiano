@@ -109,26 +109,40 @@ function Home({ preRenderedPostsData }) {
       {/* {posts && <PostList posts={data} />} */}
 
       {posts && <PostList posts={posts} />}
-      <p
-        ref={loadMoreRef}
-        style={{
-          textAlign: "center",
-          fontsize: "1.5rem",
-          fontWeight: "bold",
-          margin: "15px",
-        }}
-      >
-        {hasMore ? "Carregando mais Post..." : "Isso é tudo por enquanto..."}
-      </p>
+      {hasMore ? (
+        <p
+          ref={loadMoreRef}
+          style={{
+            textAlign: "center",
+            fontsize: "1.5rem",
+            fontWeight: "bold",
+            margin: "15px",
+          }}
+        >
+          Carregando mais Post...
+        </p>
+      ) : (
+        <p
+          ref={loadMoreRef}
+          style={{
+            textAlign: "center",
+            fontsize: "1.5rem",
+            fontWeight: "bold",
+            margin: "15px",
+          }}
+        >
+          Isso é tudo por enquanto...
+        </p>
+      )}
     </>
   );
 }
 
 export async function getServerSideProps({ req, res }) {
-  // res.setHeader(
-  //   "Cache-Control",
-  //   "public, s-maxage=10, stale-while-revalidate=59"
-  // );
+  res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=10, stale-while-revalidate=59"
+  );
 
   const {
     data: { posts, totalPages, currentPage },
