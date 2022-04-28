@@ -19,18 +19,19 @@ function Home({ preRenderedPostsData }) {
 
   const [modalStatus, setModalStatus] = useState(false);
 
-  const [posts, setPosts] = useState();
-  const [currentPage, setCurrentPage] = useState();
-  const [totalPages, setTotalPages] = useState();
+  const [posts, setPosts] = useState(preRenderedPostsData?.posts);
+  const [currentPage, setCurrentPage] = useState(
+    // preRenderedPostsData?.currentPage
+    2
+  );
+  const [totalPages, setTotalPages] = useState(
+    preRenderedPostsData?.totalPages
+  );
   const [hasMore, setHasMore] = useState(true);
 
   const { user, isAuthenticated } = useContext(AuthContext);
 
   useEffect(() => {
-    setPosts(preRenderedPostsData?.posts);
-    setCurrentPage(preRenderedPostsData?.currentPage);
-    setTotalPages(preRenderedPostsData?.totalPages);
-
     const options = {
       root: null,
       rootMargin: "20px",
@@ -62,16 +63,12 @@ function Home({ preRenderedPostsData }) {
         },
       });
 
-      console.log(newPosts);
-
       if (!newPosts?.length) {
         // console.log("Os posts acabaram");
         return;
       }
 
-      const newPostData = posts.push(newPosts);
-
-      setPosts(newPostData);
+      setPosts([...posts, ...newPosts]);
     };
 
     handleResquest();
