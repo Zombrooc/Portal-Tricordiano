@@ -19,18 +19,18 @@ function Home({ preRenderedPostsData }) {
 
   const [modalStatus, setModalStatus] = useState(false);
 
-  const [posts, setPosts] = useState(preRenderedPostsData?.posts);
-  const [currentPage, setCurrentPage] = useState(
-    preRenderedPostsData?.currentPage
-  );
-  const [totalPages, setTotalPages] = useState(
-    preRenderedPostsData?.totalPages
-  );
+  const [posts, setPosts] = useState();
+  const [currentPage, setCurrentPage] = useState();
+  const [totalPages, setTotalPages] = useState();
   const [hasMore, setHasMore] = useState(true);
 
   const { user, isAuthenticated } = useContext(AuthContext);
 
   useEffect(() => {
+    setPosts(preRenderedPostsData?.posts);
+    setCurrentPage(preRenderedPostsData?.currentPage);
+    setTotalPages(preRenderedPostsData?.totalPages);
+
     const options = {
       root: null,
       rootMargin: "20px",
@@ -132,6 +132,10 @@ export async function getServerSideProps({ req, res }) {
   const {
     data: { posts, totalPages, currentPage },
   } = await api.get("/posts");
+
+  console.log(posts);
+  console.log(totalPages);
+  console.log(currentPage);
 
   return {
     props: {
