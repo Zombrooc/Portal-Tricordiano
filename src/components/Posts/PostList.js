@@ -3,6 +3,7 @@ import { PostListContainer } from "./styles";
 import PostItem from "./PostItem";
 
 const PostList = ({ posts }) => {
+  console.log(posts);
   return (
     <PostListContainer>
       {posts.map((post, index) => {
