@@ -62,12 +62,16 @@ function Home({ preRenderedPostsData }) {
         },
       });
 
-      if (!newPosts.length) {
+      console.log(newPosts);
+
+      if (!newPosts?.length) {
         // console.log("Os posts acabaram");
         return;
       }
 
-      setPosts([...posts, ...newPosts]);
+      const newPostData = posts.push(newPosts);
+
+      setPosts(newPostData);
     };
 
     handleResquest();
@@ -132,10 +136,6 @@ export async function getServerSideProps({ req, res }) {
   const {
     data: { posts, totalPages, currentPage },
   } = await api.get("/posts");
-
-  console.log(posts);
-  console.log(totalPages);
-  console.log(currentPage);
 
   return {
     props: {
